@@ -210,7 +210,7 @@ public class Login extends JFrame {
 			}
 		});
 		
-		/// mới sửa
+		/// mới sửa nè
 
 	}
 }
