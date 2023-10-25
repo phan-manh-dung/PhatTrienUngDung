@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -57,6 +58,11 @@ import javax.swing.BorderFactory;
 import javax.swing.JRadioButton;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import javax.swing.BoxLayout;
+import java.awt.GridLayout;
+import java.awt.FlowLayout;
+
+
 
 public class ViewNhanVien1 extends JFrame {
 	private Color colorMenu = new Color(27, 64, 31);
@@ -72,12 +78,15 @@ public class ViewNhanVien1 extends JFrame {
 
 	private JTextField textFieldName;
 	private JTextField textFindId;
+	private JTextField textField;
+	private JTextField textField_1;
 	private JTextField txtMaNV;
-	private JTextField txtRole;
-	private JTextField txtName;
-	private JTextField txtSex;
-	private JTextField txtPhone;
+	private JTextField txtTenNV;
+	private JTextField txtChucVu;
+	private JTextField txtGioiTinh;
+	private JTextField txtSDT;
 	private JTextField txtEmail;
+
 
 	/**
 	 * Launch the application.
@@ -121,7 +130,7 @@ public class ViewNhanVien1 extends JFrame {
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.ORANGE);
-		panel_1.setBounds(0, 87, 199, 676);
+		panel_1.setBounds(0, 87, 199, 613);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -211,33 +220,97 @@ public class ViewNhanVien1 extends JFrame {
 		pnlanhdaidien.setBounds(31, 10, 140, 140);
 		pnlanhdaidien.setBackground(Color.ORANGE);
 		panel_1.add(pnlanhdaidien);
-
-//		JMenuBar menuBar = new JMenuBar();
-//		JMenu mnKhachHang = new JMenu("Khách hàng");
-//		// Tạo menu Thống kê
-//		JMenu mnThongKe = new JMenu("Thống kê");
-//		// Thêm menu vào menu bar
-//		menuBar.add(mnKhachHang);
-//		menuBar.add(mnThongKe);
-//		// Thêm menu bar vào frame
-//		menuBar.setBounds(115, 11, 106, 23);
-//		setJMenuBar(menuBar);
-//		panel_2.add(menuBar);
-
+		
+		// tab menu
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBounds(201, 91, 983, 658);
+		contentPane.add(tabbedPane);
+		JPanel panel_khachHang = new JPanel();
+		tabbedPane.addTab("Khách Hàng", null, panel_khachHang, null);
+		panel_khachHang.setLayout(null);
+		
+		
+		// tab menu thống kê
+		JTabbedPane tabbedPane2 = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBounds(201, 91, 983, 658);
+		contentPane.add(tabbedPane);
+		JPanel panel_thongKe = new JPanel();
+		tabbedPane.addTab("Thống kê", null, panel_thongKe, null);
+		panel_thongKe.setLayout(null);
+		
+		JComboBox comboBox_1 = new JComboBox();
+		String[] choice1 = {"Xuất hóa đơn","Theo ngày","Theo tháng","Theo năm"};
+		for(String dataCbx : choice1) {
+			comboBox_1.addItem(dataCbx);
+		}
+		comboBox_1.setBounds(34, 21, 141, 22);
+		panel_thongKe.add(comboBox_1);
+		
+		JButton btnNewButton = new JButton("Thống kê");
+		btnNewButton.setBounds(389, 15, 121, 28);
+		panel_thongKe.add(btnNewButton);
+		JButton btnXutThngK = new JButton("Xuất thống kê");
+		btnXutThngK.setBounds(810, 15, 121, 28);
+		panel_thongKe.add(btnXutThngK);
+		
+		// table thống kê
+		
+		String row[] = { "Mã Nhân Viên", "Tên Nhân Viên", "Hóa đơn đã lập" };
+		model = new DefaultTableModel(row, 0);
+		model.addRow(row);
+		String row1[] = { "NV001", "Dũng", "34" };
+		model.addRow(row1);
+		String row2[] = { "NV002", "Duy", "55" };
+		model.addRow(row2);
+		
+		// xét màu cho hàng
+		table = new JTable(model) {
+			@Override
+			public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+				Component component = super.prepareRenderer(renderer, row, column);
+				// Đặt màu nền cho các dòng (trừ header)
+				if (!isRowSelected(row)) {
+					component.setBackground(row % 2 == 1 ? Color.WHITE : Color.LIGHT_GRAY); // Màu nền xen kẽ
+				}
+				return component;
+			}
+		};
+		
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(34, 125, 432, 377);
+		panel_thongKe.add(scrollPane);
+		
+		//title danh sách
+		
+		JLabel lblNewLabel_3 = new JLabel("Bảng danh sách hóa đơn đã lập");
+		lblNewLabel_3.setForeground(new Color(220, 20, 60));
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel_3.setBounds(137, 518, 202, 28);
+		panel_thongKe.add(lblNewLabel_3);
+		
+		// panel chart
+		JPanel panel_Chart = new JPanel();
+		panel_Chart.setBounds(516, 125, 439, 377);
+		panel_thongKe.add(panel_Chart);
+		panel_khachHang.setLayout(null);
+	
+	
+	
+		// button them xoa sua
 		JButton btnAdd = new JButton("Thêm");
 		btnAdd.setForeground(new Color(255, 255, 255));
 		btnAdd.setBackground(new Color(0, 128, 0));
-		btnAdd.setBounds(208, 132, 100, 30);
-		contentPane.add(btnAdd);
+		btnAdd.setBounds(21, 19, 100, 30);
+		panel_khachHang.add(btnAdd);
 
 		// chooose filter
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(379, 136, 179, 22);
-		contentPane.add(comboBox);
+		comboBox.setBounds(224, 23, 154, 22);
+		panel_khachHang.add(comboBox);
 
 		JLabel lblLoc = new JLabel("Lọc");
-		lblLoc.setBounds(331, 140, 38, 14);
-		contentPane.add(lblLoc);
+		lblLoc.setBounds(172, 27, 38, 14);
+		panel_khachHang.add(lblLoc);
 		String[] filter = { "Lọc Giới tính", "Nam", "Nữ" };
 		for (String choice : filter) {
 			comboBox.addItem(choice);
@@ -245,163 +318,146 @@ public class ViewNhanVien1 extends JFrame {
 		// label tìm tên
 		JLabel lblFindName = new JLabel("Tìm theo tên");
 		lblFindName.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblFindName.setBounds(591, 139, 92, 14);
-		contentPane.add(lblFindName);
+		lblFindName.setBounds(408, 26, 92, 14);
+		panel_khachHang.add(lblFindName);
 
 		textFieldName = new JTextField();
-		textFieldName.setBounds(693, 137, 168, 20);
+		textFieldName.setBounds(510, 25, 146, 20);
 		textFieldName.setColumns(10);
 		
 		textFieldName.setBackground(null);
 		Border border = textFieldName.getBorder();
 		Border newBorder = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.green);
 		textFieldName.setBorder(newBorder);
-		contentPane.add(textFieldName);
+		panel_khachHang.add(textFieldName);
 		// label tìm mã
 		JLabel lblFindId = new JLabel("Tìm theo mã");
 		lblFindId.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblFindId.setBounds(889, 139, 92, 14);
-		contentPane.add(lblFindId);
-
-		textFindId = new JTextField();
-		textFindId.setColumns(10);
-		textFindId.setBounds(991, 137, 185, 20);
-		textFindId.setBackground(null);
-		Border border1 = textFindId.getBorder();
+		lblFindId.setBounds(678, 26, 92, 14);
+		panel_khachHang.add(lblFindId);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBackground(null);
+		Border border1 = textField_1.getBorder();
 		Border newBorder1 = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.green);
-		textFindId.setBorder(newBorder1);
-		contentPane.add(textFindId);
+		textField_1.setBorder(newBorder1);
+		textField_1.setBounds(776, 29, 146, 20);
+		panel_khachHang.add(textField_1);
 		
-		//panel
+		JPanel panel_chua_san_pham = new JPanel();
+		panel_chua_san_pham.setBounds(21, 86, 936, 490);
+		panel_khachHang.add(panel_chua_san_pham);
+		panel_chua_san_pham.setLayout(null);
 		
-		JPanel panel_nhanVien = new JPanel();
-		panel_nhanVien.setBackground(new Color(224, 255, 255));
-		panel_nhanVien.setBounds(194, 193, 982, 125);
-		contentPane.add(panel_nhanVien);
-		panel_nhanVien.setLayout(null);
+		JPanel panel_NV = new JPanel();
+		panel_NV.setBounds(20, 11, 894, 140);
+		panel_chua_san_pham.add(panel_NV);
+		panel_NV.setLayout(null);
 		
-		JLabel lblAvt = new JLabel("");
-		lblAvt.setBounds(21, 11, 105, 101);
-		panel_nhanVien.add(lblAvt);
+		JLabel lblNewLabel_2 = new JLabel("ảnh");
+		lblNewLabel_2.setBounds(10, 11, 116, 118);
+		panel_NV.add(lblNewLabel_2);
+		
+		JLabel lblMaNV = new JLabel("Mã nhân viên");
+		lblMaNV.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblMaNV.setBounds(149, 11, 107, 21);
+		panel_NV.add(lblMaNV);
+		
+		JLabel lblTenNV = new JLabel("Tên nhân viên");
+		lblTenNV.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblTenNV.setBounds(149, 50, 107, 21);
+		panel_NV.add(lblTenNV);
+		
+		JLabel lblChucVu = new JLabel("Chức vụ");
+		lblChucVu.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblChucVu.setBounds(149, 90, 107, 21);
+		panel_NV.add(lblChucVu);
+		
+		txtMaNV = new JTextField();
+		txtMaNV.setBounds(285, 11, 143, 20);
+		panel_NV.add(txtMaNV);
+		txtMaNV.setColumns(10);
+		
+		txtTenNV = new JTextField();
+		txtTenNV.setColumns(10);
+		txtTenNV.setBounds(285, 51, 143, 20);
+		panel_NV.add(txtTenNV);
+		
+		txtChucVu = new JTextField();
+		txtChucVu.setColumns(10);
+		txtChucVu.setBounds(285, 91, 143, 20);
+		panel_NV.add(txtChucVu);
+		
+		JLabel lblGioiTinh = new JLabel("Giới tính");
+		lblGioiTinh.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblGioiTinh.setBounds(458, 11, 107, 21);
+		panel_NV.add(lblGioiTinh);
+		
+		JLabel lblSDT = new JLabel("Số điện thoại");
+		lblSDT.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblSDT.setBounds(458, 50, 107, 21);
+		panel_NV.add(lblSDT);
+		
+		JLabel lblEmail = new JLabel("Email");
+		lblEmail.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblEmail.setBounds(458, 90, 107, 21);
+		panel_NV.add(lblEmail);
+		
+		txtGioiTinh = new JTextField();
+		txtGioiTinh.setColumns(10);
+		txtGioiTinh.setBounds(573, 11, 143, 20);
+		panel_NV.add(txtGioiTinh);
+		
+		txtSDT = new JTextField();
+		txtSDT.setColumns(10);
+		txtSDT.setBounds(573, 51, 143, 20);
+		panel_NV.add(txtSDT);
+		
+		txtEmail = new JTextField();
+		txtEmail.setColumns(10);
+		txtEmail.setBounds(573, 91, 143, 20);
+		panel_NV.add(txtEmail);
+		
+		JButton btnSua = new JButton("Sửa");
+		btnSua.setForeground(new Color(255, 255, 255));
+		btnSua.setBackground(new Color(255, 215, 0));
+	
+		btnSua.setBounds(776, 11, 108, 31);
+		panel_NV.add(btnSua);
+		
+		JButton btnXoa = new JButton("Xóa");
+		btnXoa.setForeground(new Color(255, 255, 255));
+		btnXoa.setBackground(new Color(255, 0, 0));
+		btnXoa.setBounds(776, 50, 108, 31);
+		panel_NV.add(btnXoa);
+		
+		JButton btnReset = new JButton("Reset Pass");
+		btnReset.setForeground(new Color(255, 255, 255));
+		btnReset.setBackground(new Color(50, 205, 50));
+		btnReset.setBounds(776, 90, 108, 31);
+		panel_NV.add(btnReset);
+		
+	
 		/// một nhân viên
 		// chèn avatar
-		try {
-			int labelWidth = lblAvt.getWidth();
-			int labelHeight = lblAvt.getHeight();
-			BufferedImage image = ImageIO.read(new File(".\\IMG\\avatar.png"));
-			BufferedImage resizedImage = new BufferedImage(labelWidth, labelHeight, image.getType());	
-			Graphics2D g = resizedImage.createGraphics();	
-			g.drawImage(image, 0, 0, labelWidth, labelHeight, null);
-			g.dispose();	
-			ImageIcon icon = new ImageIcon(resizedImage);
-			// set icon cho label
-			lblAvt.setIcon(icon);
-			// mã nhân viên
-			JLabel lblMaNV = new JLabel("Mã nhân viên");
-			lblMaNV.setFont(new Font("Tahoma", Font.BOLD, 12));
-			lblMaNV.setBounds(157, 23, 96, 14);
-			panel_nhanVien.add(lblMaNV);
-			
-			txtMaNV = new JTextField();
-			txtMaNV.setBounds(272, 20, 162, 20);
-			panel_nhanVien.add(txtMaNV);
-			txtMaNV.setColumns(10);
-			txtMaNV.setText("NV001");
-			txtMaNV.setBackground(null);
-			txtMaNV.setBorder(null);
-			// họ tên
-			JLabel lblName = new JLabel("Họ tên");
-			lblName.setFont(new Font("Tahoma", Font.BOLD, 12));
-			lblName.setBounds(157, 54, 96, 14);
-			panel_nhanVien.add(lblName);
-			
-			txtName = new JTextField();
-			txtName.setColumns(10);
-			txtName.setBounds(272, 48, 162, 20);
-			panel_nhanVien.add(txtName);
-			txtName.setText("Phan Mạnh Dũng");
-			txtName.setBackground(null);
-			txtName.setBorder(null);
-			// chức vụ
-			JLabel lblRole = new JLabel("Chức vụ");
-			lblRole.setFont(new Font("Tahoma", Font.BOLD, 12));
-			lblRole.setBounds(157, 85, 96, 14);
-			panel_nhanVien.add(lblRole);
-			
-			txtRole = new JTextField();
-			txtRole.setColumns(10);
-			txtRole.setBounds(272, 82, 162, 20);
-			panel_nhanVien.add(txtRole);
-			txtRole.setText("Nhân viên");
-			txtRole.setBackground(null);
-			txtRole.setBorder(null);
-			// giới tính
-			JLabel lblSex = new JLabel("Giới tính");
-			lblSex.setFont(new Font("Tahoma", Font.BOLD, 12));
-			lblSex.setBounds(524, 23, 96, 14);
-			panel_nhanVien.add(lblSex);
-			
-			txtSex = new JTextField();
-			txtSex.setColumns(10);
-			txtSex.setBounds(630, 20, 162, 20);
-			panel_nhanVien.add(txtSex);
-			txtSex.setText("Nam");
-			txtSex.setBackground(null);
-			txtSex.setBorder(null);
-			// phone
-			JLabel lblPhone = new JLabel("Số điện thoại");
-			lblPhone.setFont(new Font("Tahoma", Font.BOLD, 12));
-			lblPhone.setBounds(524, 54, 96, 14);
-			panel_nhanVien.add(lblPhone);
-			
-			txtPhone = new JTextField();
-			txtPhone.setColumns(10);
-			txtPhone.setBounds(630, 51, 162, 20);
-			panel_nhanVien.add(txtPhone);
-			txtPhone.setText("0930930");
-			txtPhone.setBackground(null);
-			txtPhone.setBorder(null);
-			// email
-			JLabel lblEmail = new JLabel("Email");
-			lblEmail.setFont(new Font("Tahoma", Font.BOLD, 12));
-			lblEmail.setBounds(524, 85, 96, 14);
-			panel_nhanVien.add(lblEmail);
-			
-			txtEmail = new JTextField();
-			txtEmail.setColumns(10);
-			txtEmail.setBounds(630, 82, 162, 20);
-			panel_nhanVien.add(txtEmail);
-			txtEmail.setText("dung@gmail.com");
-			txtEmail.setBackground(null);
-			txtEmail.setBorder(null);
-			// button sửa
-			JButton btnFix = new JButton("Sửa");
-			btnFix.setForeground(new Color(255, 255, 255));
-			btnFix.setBackground(new Color(255, 165, 0));
-			btnFix.setBounds(845, 11, 105, 29);
-			panel_nhanVien.add(btnFix);
-			// button xóa
-			JButton btnDelete = new JButton("Xóa");
-			btnDelete.setForeground(new Color(255, 255, 255));
-			btnDelete.setBackground(new Color(255, 0, 0));
-			btnDelete.setBounds(845, 47, 105, 29);
-			panel_nhanVien.add(btnDelete);
-			// button reset pass
-			JButton btnReset = new JButton("Reset Pass");
-			btnReset.setForeground(new Color(255, 255, 255));
-			btnReset.setBackground(new Color(255, 69, 0));
-			btnReset.setBounds(845, 83, 105, 29);
-			panel_nhanVien.add(btnReset);
+	//	try {
+//			BufferedImage image = ImageIO.read(new File(".\\IMG\\avatar.png"));
+//			BufferedImage resizedImage = new BufferedImage(labelWidth, labelHeight, image.getType());	
+//			Graphics2D g = resizedImage.createGraphics();	
+//			g.drawImage(image, 0, 0, labelWidth, labelHeight, null);
+//			g.dispose();	
+//			ImageIcon icon = new ImageIcon(resizedImage);
 			
 			// sự kiện add nhân viên 
-//			btnAdd.addActionListener(new ActionListener() {
-//				@Override
-//				public void actionPerformed(ActionEvent e) {
-//					ViewAddNhanVien viewNV = new ViewAddNhanVien();
-//					viewNV.setLocationRelativeTo(null);
-//					viewNV.setVisible(true);
-//				}
-//			});
+			btnAdd.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					ViewAddNhanVien viewNV = new ViewAddNhanVien();
+					viewNV.setLocationRelativeTo(null);
+					viewNV.setVisible(true);
+				}
+			});
 			
 			btnKhachHang.addActionListener(new ActionListener() {
 			    public void actionPerformed(ActionEvent e) {
@@ -441,9 +497,9 @@ public class ViewNhanVien1 extends JFrame {
 			       
 			    }
 			});
-			
-		}catch(IOException e) {
-			e.printStackTrace();
+		
+//		}catch(IOException e) {
+//			e.printStackTrace();
+		
 		}
 	}
-}

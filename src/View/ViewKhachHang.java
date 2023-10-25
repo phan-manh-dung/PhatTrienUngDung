@@ -198,12 +198,12 @@ public class ViewKhachHang extends JFrame {
 		pnlanhdaidien.setBackground(Color.ORANGE);
 		panel_1.add(pnlanhdaidien);
 		
+		// tab menu
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(201, 91, 983, 658);
 		contentPane.add(tabbedPane);
-		
 		JPanel panel = new JPanel();
-		tabbedPane.addTab("Khách Hàng", null, panel, null);
+		tabbedPane.addTab("Khách Hàng ", null, panel, null);
 		panel.setLayout(null);
 		
 		JLabel lblFilter = new JLabel("Lọc");
@@ -324,8 +324,8 @@ public class ViewKhachHang extends JFrame {
 		btnDelete.setBounds(255, 369, 99, 40);
 		panel_KH.add(btnDelete);
 		
+		// table
 		String row[] = { "Mã Khách Hàng", "Họ Tên", "SDT", "Địa chỉ", "Giới tính" };
-
 		model = new DefaultTableModel(row, 0);
 		model.addRow(row);
 		String row1[] = { "KH001", "Dũng", "034343", "12-QuangTrung", "Nữ" };
@@ -354,25 +354,25 @@ public class ViewKhachHang extends JFrame {
 		panel.add(scrollPane);
 		
 		// thêm data vào bảng table
-//		btnAdd.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				// Lấy thông tin từ các trường nhập
-//				String maKH = "KH" + ViewKhachHang.hamTang(); // Điền mã KH theo logic của bạn
-//				String hoTen = textName.getText();
-//				String sdt = textPhone.getText();
-//				String diaChi = textAddress.getText();
-//				String gioiTinh = rdbtnMale.isSelected() ? "Nam" : "Nữ";
-//				// Tạo một mảng chứa thông tin mới
-//				String newRow[] = { maKH, hoTen, sdt, diaChi, gioiTinh };
-//				// Thêm hàng mới vào bảng
-//				model.addRow(newRow);
-//				// Xóa nội dung các trường nhập
-//				textName.setText("");
-//				textPhone.setText("");
-//				textAddress.setText("");
-//			}
-//		});
+		btnAdd.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// Lấy thông tin từ các trường nhập
+				String maKH = "KH" + ViewKhachHang.hamTang(); // Điền mã KH theo logic của bạn
+				String hoTen = textName.getText();
+				String sdt = textPhone.getText();
+				String diaChi = textAddress.getText();
+				String gioiTinh = rdbtnMale.isSelected() ? "Nam" : "Nữ";
+				// Tạo một mảng chứa thông tin mới
+				String newRow[] = { maKH, hoTen, sdt, diaChi, gioiTinh };
+				// Thêm hàng mới vào bảng
+				model.addRow(newRow);
+				// Xóa nội dung các trường nhập
+				textName.setText("");
+				textPhone.setText("");
+				textAddress.setText("");
+			}
+		});
 		// sửa dữ liệu trong bảng table
 		btnConfirm.addActionListener((new ActionListener() {
 			@Override
@@ -457,6 +457,13 @@ public class ViewKhachHang extends JFrame {
 		       
 		    }
 		});
+	}
+	static int count = 1;
+	static int hamTang() {
+	    for (int i = 1; i < 100; i++) {
+	        count++;
+	    }
+	    return count;
 	}
 }
 
