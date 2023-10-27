@@ -653,17 +653,17 @@ public class ViewHoaDon extends JFrame {
 		Color backgroundColorSapXep = new Color(226, 240, 222);
 		
 		// Code xu ly event
-		btnInHD.addActionListener(new ActionListener() {
+	//	btnInHD.addActionListener(new ActionListener() {
 			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Object o = e.getSource();
-		    	if(o.equals(btnInHD)) {
-		    		ViewThanhToan viewTT = new ViewThanhToan();
-		    		viewTT.setLocationRelativeTo(null);
-		    		viewTT.setVisible(true);
-		        }
-			}
-		});
+	//		@Override
+//			public void actionPerformed(ActionEvent e) {
+//				Object o = e.getSource();
+//		    	if(o.equals(btnInHD)) {
+//		    		ViewThanhToan viewTT = new ViewThanhToan();
+//		    		viewTT.setLocationRelativeTo(null);
+//		    		viewTT.setVisible(true);
+//		        }
+//			}
+//		});
 	}
 }

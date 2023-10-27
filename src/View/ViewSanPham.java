@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
-import Entity.SanPham;
+import Entity.KhachHang;
 
 import javax.swing.JToolBar;
 import javax.swing.JButton;
@@ -60,7 +60,7 @@ public class ViewSanPham extends JFrame {
 	private JPanel contentPane;
 	public ViewKhachHang viewKhachHang;
 	private Color colorMenu = new Color(27, 64, 31);
-	private SanPham sanPham;
+	private KhachHang sanPham;
 	private JTextField textField;
 	private JTextField textField_1;
 
