@@ -291,7 +291,6 @@ public class ViewSanPham extends JFrame {
 		JPanel panel = new JPanel();
 		tabbedNhanVien.addTab("Thống kê", null, panel, null);
 		
-
 		
 		 for (int i = 0; i < 20; i++) {
 	            JPanel taoDanhSachSP = taoDanhSachSP("Product " + i, "Price " + (i * 1000), ".\\IMG\\ao trang.jpg");

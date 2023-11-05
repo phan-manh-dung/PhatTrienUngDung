@@ -1,6 +1,6 @@
 package Entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class NhanVien {
 	private String maNhanVien;
@@ -61,14 +61,16 @@ public class NhanVien {
 	public void setChucVu(String chucVu) {
 		this.chucVu = chucVu;
 	}
+	
 	public String getHinhAnh() {
 		return hinhAnh;
 	}
 	public void setHinhAnh(String hinhAnh) {
 		this.hinhAnh = hinhAnh;
 	}
+
 	public NhanVien(String maNhanVien, String tenNhanVien, Date ngaySinh, boolean gioiTinh, String canCuoc,
-			String soDienThoai, String diaChi, String chucVu, String hinhAnh) {
+			String soDienThoai, String diaChi, String chucVu,String hinhAnh) {
 		super();
 		this.maNhanVien = maNhanVien;
 		this.tenNhanVien = tenNhanVien;
@@ -88,7 +90,7 @@ public class NhanVien {
 	public String toString() {
 		return "NhanVien [maNhanVien=" + maNhanVien + ", tenNhanVien=" + tenNhanVien + ", ngaySinh=" + ngaySinh
 				+ ", gioiTinh=" + gioiTinh + ", canCuoc=" + canCuoc + ", soDienThoai=" + soDienThoai + ", diaChi="
-				+ diaChi + ", chucVu=" + chucVu + ", hinhAnh=" + hinhAnh + "]";
+				+ diaChi + ", chucVu=" + chucVu ;
 	}
 
 }

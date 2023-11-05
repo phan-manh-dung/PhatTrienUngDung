@@ -30,6 +30,7 @@ public class KhachHang {
 	public void setGioiTinh(boolean gioiTinh) {
 		this.gioiTinh = gioiTinh;
 	}
+	
 	public String getDiaChi() {
 		return diaChi;
 	}
